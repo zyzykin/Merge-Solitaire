@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88d931299fb4f47a70bb064506e2361, type: 3}
+  m_Name: AnimationSettings
+  m_EditorClassIdentifier: 
+  _blockSpawnDuration: 0.25
+  _blockMoveDuration: 0.025
+  _blockMoveDelay: 0.01
+  _blockMergeDuration: 0.25
+  _blockMergeDelay: 0.2
+  _tremorDuration: 0.2
+  _tremorStrength: 0.4
+  _blockShakeDuration: 0.15
+  _blockShakeStrength: 0.15
+  _attachDuration: 0.35
+  _highlightDuration: 0.2
+  _highlightDelay: 0.035

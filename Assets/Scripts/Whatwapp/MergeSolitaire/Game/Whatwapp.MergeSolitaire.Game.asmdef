@@ -1,0 +1,23 @@
+{
+    "name": "Whatwapp.MergeSolitaire.Game",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0307747bfb2434fc581cecb638dabaac",
+        "GUID:8285d021f20a54ff890ef9aa643d7b77",
+        "GUID:fb8d0f754e34b44adabcd4790e6a1611",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:8df4ed4e0b75f4333941aacea790f54c",
+        "GUID:6ca3d6482daa9476f990ab451163b69b",
+        "GUID:b8e8d747a46ff4685ada3556aa3d85d3",
+        "GUID:7deff0990fd6740879cc80918f15aa6d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

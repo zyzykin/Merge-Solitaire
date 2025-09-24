@@ -1,0 +1,16 @@
+{
+    "name": "Whatwapp.Core.UI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:fb8d0f754e34b44adabcd4790e6a1611"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,25 +1,23 @@
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
-using Whatwapp.Core.Audio;
 using Whatwapp.Core.Extensions;
 using Whatwapp.Core.Utils;
+using Whatwapp.MergeSolitaire.Game.Presentation;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
     public class MergeBlocksState : BaseState
     {
         private readonly Board _board;
-        private readonly AnimationSettings _animationSettings;
         private readonly BlockFactory _blockFactory;
-        private FoundationsController _foundationsController;
-        private SFXManager _sfxManager;
+        private readonly FoundationsController _foundationsController;
+        private readonly ISFXPresenter _sfxPresenter;
+        private readonly IBlockAnimationPresenter _blockAnimationPresenter;
 
         public bool MergeCompleted { get; private set; }
         public int MergeCount { get; private set; }
 
-
-        private Vector2Int[] _directions = new[]
+        private readonly Vector2Int[] _directions =
         {
             new Vector2Int(1, 0),
             new Vector2Int(-1, 0),
@@ -27,20 +25,21 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             new Vector2Int(0, -1),
         };
 
-
         public MergeBlocksState(GameController gameController, Board board, BlockFactory blockFactory,
-            FoundationsController foundationsController, SFXManager sfxManager, AnimationSettings animationSettings) : base(gameController)
+            FoundationsController foundationsController, ISFXPresenter sfxPresenter,
+            IBlockAnimationPresenter blockAnimationPresenter) : base(gameController)
         {
             _board = board;
-            _animationSettings = animationSettings;
             _blockFactory = blockFactory;
             _foundationsController = foundationsController;
-            _sfxManager = sfxManager;
+            _sfxPresenter = sfxPresenter;
+            _blockAnimationPresenter = blockAnimationPresenter;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
+
             MergeCompleted = false;
             MergeCount = 0;
             MergeBlocks();
@@ -49,7 +48,6 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         private void MergeBlocks()
         {
             MergeCompleted = false;
-            // Check for all cells that are not empty 
             var mergeableGroups = GetAllMergableCells();
             MergeCount = mergeableGroups.Count;
             if (MergeCount == 0)
@@ -57,101 +55,77 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 MergeCompleted = true;
                 return;
             }
+
             MergeGroups(mergeableGroups);
         }
-        
+
         private void MergeGroups(List<List<Cell>> mergeableGroups)
         {
-            var sequence = DOTween.Sequence();
+            var mergeGroups = new List<MergeGroup>();
             foreach (var group in mergeableGroups)
             {
-                var seedHash = new HashSet<BlockSeed>();
                 var firstCell = group[0];
-                var value = firstCell.Block.Value;
-                var seed = firstCell.Block.Seed;
-                seedHash.Add(seed);
-                var groupSequence = DOTween.Sequence();
-                var tremorSequence = DOTween.Sequence();
+                var oldValue = firstCell.Block.Value;
+                var nextValue = oldValue.Next(true);
+                var randomSeed = EnumUtils.GetRandom<BlockSeed>();
+                var seedHash = new HashSet<BlockSeed>();
                 foreach (var cell in group)
                 {
                     seedHash.Add(cell.Block.Seed);
-                    tremorSequence.Join(cell.Block.transform.DOShakeScale(_animationSettings.TremorDuration,
-                        _animationSettings.TremorStrength));
                 }
-                Debug.Log("Seed hash count: " + seedHash.Count);
-                
-                groupSequence.Append(tremorSequence);
-                for(var i= group.Count-1; i>0; i--)
-                {
-                    var cell = group[i];
-                    var block = cell.Block;
-                    var targetCell = group[i - 1];
-                    var targetPos = targetCell.transform.position;
-                    var blockSequence = DOTween.Sequence();
-                    blockSequence.Append(block.transform.DOMove(targetPos, _animationSettings.MergeDuration));
-                    blockSequence.Join(block.transform.DOScale(Vector3.zero, _animationSettings.MergeDuration).OnStart(
-                        () =>
-                        {
-                            _sfxManager.PlayOneShot(Consts.SFX_PlayBlock);
-                        }));
-                    blockSequence.SetDelay(_animationSettings.MergeDuration);
-                    blockSequence.OnComplete(() =>
-                    {
-                        _sfxManager.PlayOneShot(Consts.SFX_MergeBlocks);
-                        targetCell.Block = null;
-                        _gameController.Score += mergeableGroups.Count * group.Count;
-                        block.Remove();
-                    });
-                    groupSequence.Join(blockSequence);
-                }
-                var finalSequence = DOTween.Sequence();
-                finalSequence.Append(firstCell.Block.transform.DOScale(0, _animationSettings.MergeDuration)
-                    .OnComplete(() =>
-                    {
-                        firstCell.Block.Remove();
-                        firstCell.Block = null;
-                    }));
-                groupSequence.Join(finalSequence);
-                groupSequence.OnComplete(() =>
-                {
-                    var nextValue = value.Next(true);
-                    var randomSeed = EnumUtils.GetRandom<BlockSeed>();
-                    var newBlock = _blockFactory.Create(nextValue, seed);
-                    firstCell.Block = newBlock;
-                    newBlock.transform.localScale = Vector3.zero;
-                    newBlock.transform.DOScale(Vector3.one, _animationSettings.MergeDuration).SetEase(Ease.OutBack);
 
-                    foreach (var seedInGroup in seedHash)
+                mergeGroups.Add(new MergeGroup
+                {
+                    Cells = group,
+                    FirstCell = firstCell,
+                    OldValue = oldValue,
+                    NextValue = nextValue,
+                    RandomSeed = randomSeed,
+                    SeedHash = seedHash
+                });
+            }
+
+            _blockAnimationPresenter.AnimateMerges(mergeGroups,
+                () => { MergeCompleted = true; },
+                (mergeGroup, cell, targetCell) =>
+                {
+                    _gameController.Score += MergeCount * mergeGroup.Cells.Count;
+                    targetCell.Block = null;
+                    cell.Block.Remove();
+                },
+                mergeGroup =>
+                {
+                    mergeGroup.FirstCell.Block.Remove();
+                    mergeGroup.FirstCell.Block = null;
+                },
+                mergeGroup =>
+                {
+                    var newBlock = _blockFactory.Create(mergeGroup.NextValue, mergeGroup.RandomSeed);
+                    mergeGroup.FirstCell.Block = newBlock;
+                    newBlock.transform.position = mergeGroup.FirstCell.transform.position;
+                    newBlock.transform.localScale = Vector3.zero;
+                    _blockAnimationPresenter.AnimateAppear(newBlock);
+                    foreach (var seed in mergeGroup.SeedHash)
                     {
-                        Debug.Log("Seed in group: " + seedInGroup);
-                        var info = new BlockToFoundationInfo(seedInGroup, value, firstCell.Position);
+                        Debug.Log("Seed in group: " + seed);
+                        var info = new BlockToFoundationInfo(seed, mergeGroup.OldValue,
+                            mergeGroup.FirstCell.transform.position);
                         if (_foundationsController.TryAndAttach(info))
                         {
-                            _sfxManager.PlayOneShot(Consts.GetFoundationSFX(seedInGroup));
+                            _sfxPresenter.PlayOneShot(Consts.GetFoundationSFX(seed));
                             _gameController.Score += Consts.FOUNDATION_POINTS;
                         }
                     }
-                    
                 });
-                
-                sequence.Append(groupSequence);
-            }
-            
-            sequence.OnComplete(() =>
-            {
-                MergeCompleted = true;
-            });
-            sequence.Play();
         }
-
 
         private List<List<Cell>> GetAllMergableCells()
         {
             var mergedGroups = new List<List<Cell>>();
             var visited = new bool[_board.Width, _board.Height];
-            for(var x= 0; x < _board.Width; x++)
+            for (var x = 0; x < _board.Width; x++)
             {
-                for(var y = _board.Height-1; y>=0; y--)
+                for (var y = _board.Height - 1; y >= 0; y--)
                 {
                     if (visited[x, y]) continue;
                     var cell = _board.GetCell(x, y);
@@ -163,7 +137,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     }
                 }
             }
-            
+
             return mergedGroups;
         }
 
@@ -183,14 +157,24 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 {
                     var nextCell = _board.GetCell(currentCell.Coordinates + direction);
                     if (nextCell == null || nextCell.IsEmpty ||
-                        visited[nextCell.Coordinates.x, nextCell.Coordinates.y] || 
+                        visited[nextCell.Coordinates.x, nextCell.Coordinates.y] ||
                         nextCell.Block.Value != value) continue;
                     visited[nextCell.Coordinates.x, nextCell.Coordinates.y] = true;
                     queue.Enqueue(nextCell);
                 }
             }
-            
+
             return mergeableCells;
         }
+    }
+
+    public class MergeGroup
+    {
+        public List<Cell> Cells { get; set; }
+        public Cell FirstCell { get; set; }
+        public BlockValue OldValue { get; set; }
+        public BlockValue NextValue { get; set; }
+        public BlockSeed RandomSeed { get; set; }
+        public HashSet<BlockSeed> SeedHash { get; set; }
     }
 }

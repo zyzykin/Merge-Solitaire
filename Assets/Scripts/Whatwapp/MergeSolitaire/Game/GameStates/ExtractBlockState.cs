@@ -1,25 +1,26 @@
-using Whatwapp.Core.Audio;
+using Whatwapp.MergeSolitaire.Game.Presentation;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
     public class ExtractBlockState : BaseState
     {
-        private NextBlockController _nextBlockController;
-        private SFXManager _sfxManager;
-        
+        private readonly NextBlockController _nextBlockController;
+        private readonly ISFXPresenter _sfxPresenter;
+
         public ExtractBlockState(GameController gameController, NextBlockController nextBlockController,
-            SFXManager sfxManager) : base(gameController)
+            ISFXPresenter sfxPresenter) : base(gameController)
         {
             _nextBlockController = nextBlockController;
-            _sfxManager = sfxManager;
+            _sfxPresenter = sfxPresenter;
         }
-        
+
         public override void OnEnter()
         {
             base.OnEnter();
+
             if (_nextBlockController.HasBlock) return;
             _nextBlockController.ExtractNextBlock();
-            _sfxManager.PlayOneShot(Consts.SFX_ExtractBlock);
+            _sfxPresenter.PlayOneShot(Consts.SFX_ExtractBlock);
         }
 
         public bool ExtractCompleted => _nextBlockController.IsReady;

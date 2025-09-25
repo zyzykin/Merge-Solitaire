@@ -1,31 +1,31 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Whatwapp.Core.Audio;
-using Whatwapp.MergeSolitaire.Game.UI;
+using Whatwapp.MergeSolitaire.Game.Presentation;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
     public class GameOverState : BaseState
     {
-        private SFXManager _sfxManager;
-        
-        public GameOverState(GameController gameController, SFXManager sfxManager) : base(gameController)
+        private readonly ISFXPresenter _sfxPresenter;
+
+        public GameOverState(GameController gameController, ISFXPresenter sfxPresenter) : base(gameController)
         {
-            _sfxManager = sfxManager;
+            _sfxPresenter = sfxPresenter;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
+            
             PlayerPrefs.SetInt(Consts.PREFS_LAST_WON, 0);
             _gameController.StartCoroutine(ShowPanel());
         }
-        
+
         private IEnumerator ShowPanel()
         {
             yield return new WaitForSeconds(1f);
-            _sfxManager.PlayOneShot("Lost");
+            _sfxPresenter.PlayOneShot(Consts.SFX_Lost);
             yield return new WaitForSeconds(2f);
 
             SceneManager.LoadScene(Consts.SCENE_END_GAME);

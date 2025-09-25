@@ -9,7 +9,6 @@ namespace Whatwapp.MergeSolitaire.Game
         [Header("Block Spawn")]
         [SerializeField] private float _blockSpawnDuration = 0.25f;
         
-        
         [Header("Block Move")]
         [SerializeField] private float _blockMoveDuration = 0.01f;
         [SerializeField] private float _blockMoveDelay = 0.0025f;
@@ -31,6 +30,10 @@ namespace Whatwapp.MergeSolitaire.Game
         [SerializeField] private float _highlightDuration = 0.05f;
         [SerializeField] private float _highlightDelay = 0.03f;
         
+        [Header("Column")]
+        [SerializeField]private float _cellShakeScaleDuration = 0.2f;
+        [SerializeField] private float _cellShakeScaleStrength = 0.1f;
+        
         public float BlockMoveDuration => _blockMoveDuration;
         public float BlockMoveDelay => _blockMoveDelay;
         public float MergeDuration => _blockMergeDuration;
@@ -42,5 +45,7 @@ namespace Whatwapp.MergeSolitaire.Game
         public float HighlightDuration => _highlightDuration;
         public float BlockShakeDuration => _blockShakeDuration;
         public float BlockShakeStrength => _blockShakeStrength;
+        public float CellShakeScaleDuration => _cellShakeScaleDuration;
+        public float CellShakeScaleStrength => _cellShakeScaleStrength;
     }
 }

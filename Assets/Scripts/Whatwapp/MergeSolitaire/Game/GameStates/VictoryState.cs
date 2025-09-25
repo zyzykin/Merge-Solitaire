@@ -1,34 +1,37 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Whatwapp.Core.Audio;
-using Whatwapp.MergeSolitaire.Game.UI;
+using Whatwapp.MergeSolitaire.Game.Presentation;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
     public class VictoryState : BaseState
     {
-        private SFXManager _sfxManager;
-        public VictoryState(GameController gameController, SFXManager sfxManager) : base(gameController)
+        private readonly ISFXPresenter _sfxPresenter;
+
+        private const float ShowPanelDelay1 = 1f;
+        private const float ShowPanelDelay2 = 2f;
+        
+        public VictoryState(GameController gameController, SFXPresenter sfxPresenter) : base(gameController)
         {
-            _sfxManager = sfxManager;
+            _sfxPresenter = sfxPresenter;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
-            
+
             _gameController.Score += Consts.VICTORY_POINTS;
             PlayerPrefs.SetInt(Consts.PREFS_LAST_WON, 1);
-            
+
             _gameController.StartCoroutine(ShowPanel());
         }
-        
+
         private IEnumerator ShowPanel()
         {
-            yield return new WaitForSeconds(1f);
-            _sfxManager.PlayOneShot("Victory");
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(ShowPanelDelay1);
+            _sfxPresenter.PlayOneShot(Consts.SFX_Victory);
+            yield return new WaitForSeconds(ShowPanelDelay2);
             SceneManager.LoadScene(Consts.SCENE_END_GAME);
         }
     }

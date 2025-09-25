@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Linq;
-using UnityEngine;
 using Whatwapp.Core.Cameras;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
@@ -25,13 +23,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         public override void OnEnter()
         {
             base.OnEnter();
-            
-            _gameController.StartCoroutine(GenerateLevel());
-        }
 
-        private IEnumerator GenerateLevel()
-        {
-            yield return new WaitForSeconds(1f);
             _gridBuilder.Init(_board, _blockFactory);
             _gridBuilder.CreateGrid();
             var targets = _board.Cells.Select(cell => cell.transform).ToList();

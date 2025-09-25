@@ -3,6 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using System;
 using Whatwapp.MergeSolitaire.Game.GameStates;
+using Whatwapp.MergeSolitaire.Game.Settings;
 
 namespace Whatwapp.MergeSolitaire.Game.Presentation
 {

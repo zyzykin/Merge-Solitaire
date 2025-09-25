@@ -17,9 +17,9 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         public override void OnEnter()
         {
             base.OnEnter();
-            
+
             PlayerPrefs.SetInt(Consts.PREFS_LAST_WON, 0);
-            _gameController.StartCoroutine(ShowPanel());
+            GameController.StartCoroutine(ShowPanel());
         }
 
         private IEnumerator ShowPanel()

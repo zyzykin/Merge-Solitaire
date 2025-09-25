@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 905927daeca24055ab2103a985905d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreText: {fileID: 1336212219}
+  scoreText: {fileID: 1336212219}
 --- !u!1 &185977772
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,12 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdea0205d8ad45e28fe1caa3e68ed3fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blockPrefab: {fileID: 1399529986098310984, guid: 0b4734375851c4f84aa141fb4dca036c, type: 3}
---- !u!4 &328639664 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8255595386286980235, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
-  m_PrefabInstance: {fileID: 508312863}
-  m_PrefabAsset: {fileID: 0}
+  blockPrefab: {fileID: 1399529986098310984, guid: 0b4734375851c4f84aa141fb4dca036c, type: 3}
 --- !u!1 &356620107
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,10 +363,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f650662841d44dfb56345388162fa04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _width: 7
-  _height: 10
-  _cellPrefab: {fileID: 1827300926411464167, guid: 9e5975146dfb941389d2aca6c1dcfdca, type: 3}
-  _lanePrefab: {fileID: 7949940400131200659, guid: c81833352d5a447888d4b52bcecc5b34, type: 3}
+  width: 7
+  height: 10
+  cellPrefab: {fileID: 1827300926411464167, guid: 9e5975146dfb941389d2aca6c1dcfdca, type: 3}
+  lanePrefab: {fileID: 7949940400131200659, guid: c81833352d5a447888d4b52bcecc5b34, type: 3}
 --- !u!4 &356620110
 Transform:
   m_ObjectHideFlags: 0
@@ -445,6 +440,10 @@ PrefabInstance:
       value: Foundations
       objectReference: {fileID: 0}
     - target: {fileID: 4122634702218104856, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
+      propertyPath: blockFactory
+      value: 
+      objectReference: {fileID: 185977774}
+    - target: {fileID: 4122634702218104856, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
       propertyPath: _blockFactory
       value: 
       objectReference: {fileID: 185977774}
@@ -498,13 +497,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6713980567274663791, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 776709492066306390, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 8335986163983093298, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 8720159957771762568, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5579362553524666308, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 4012137763757888688, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5917614383190979146, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
@@ -618,9 +617,9 @@ MonoBehaviour:
   _targets:
   - {fileID: 1107589597}
   - {fileID: 1632625969}
-  - {fileID: 328639664}
-  - {fileID: 1367739129}
-  - {fileID: 820811884}
+  - {fileID: 1291866267}
+  - {fileID: 951344528}
+  - {fileID: 1596698095}
   - {fileID: 1495846090}
   - {fileID: 2145953527}
   _topMargin: 2
@@ -658,14 +657,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   board: {fileID: 1440890719}
-  _gridBuilder: {fileID: 356620108}
-  _targetBoundedCamera: {fileID: 519420033}
-  _blockFactory: {fileID: 185977774}
-  _nextBlockController: {fileID: 1656265683}
-  _foundationsController: {fileID: 698506388}
-  _scoreBox: {fileID: 141928563}
-  _blockAnimationPresenter: {fileID: 448391687}
-  _sfxPresenter: {fileID: 1853200315}
+  gridBuilder: {fileID: 356620108}
+  targetBoundedCamera: {fileID: 519420033}
+  blockFactory: {fileID: 185977774}
+  nextBlockController: {fileID: 1656265683}
+  foundationsController: {fileID: 698506388}
+  scoreBox: {fileID: 141928563}
+  blockAnimationPresenter: {fileID: 448391687}
+  sfxPresenter: {fileID: 1853200315}
 --- !u!4 &652229317
 Transform:
   m_ObjectHideFlags: 0
@@ -781,14 +780,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 519420032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!4 &820811884 stripped
+--- !u!4 &951344528 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8046526599644828413, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
+  m_CorrespondingSourceObject: {fileID: 19642069602430950, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
   m_PrefabInstance: {fileID: 508312863}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &1107589597 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7325324939916606334, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
+  m_PrefabInstance: {fileID: 508312863}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1291866267 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4505701572460862992, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
   m_PrefabInstance: {fileID: 508312863}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1336212217
@@ -1041,11 +1045,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1367739129 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5307802250158967255, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
-  m_PrefabInstance: {fileID: 508312863}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1440890717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,6 +1260,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!4 &1596698095 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2249475551556100712, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
+  m_PrefabInstance: {fileID: 508312863}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1632625969 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1154312617736699725, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
@@ -1312,13 +1316,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0920d7ffb874c6f82ca2e4df7c48db2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blockFactory: {fileID: 185977774}
-  _spawnPoint: {fileID: 2145953527}
-  _board: {fileID: 1440890719}
-  _foundationsController: {fileID: 698506388}
-  _animationSettings: {fileID: 11400000, guid: ccb81c4198f5440909f7ca5c5afdce38, type: 2}
-  _probabilityOfGoodBlock: 0.108
-  _probabilityToSpawnAttachableBlock: 0.5
+  blockFactory: {fileID: 185977774}
+  spawnPoint: {fileID: 2145953527}
+  board: {fileID: 1440890719}
+  foundationsController: {fileID: 698506388}
+  animationSettings: {fileID: 11400000, guid: ccb81c4198f5440909f7ca5c5afdce38, type: 2}
+  probabilityOfGoodBlock: 0.108
+  probabilityToSpawnAttachableBlock: 0.5
 --- !u!1 &1782320449
 GameObject:
   m_ObjectHideFlags: 0

@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ed0b75e3024f14a8a5aa7d6dd24184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreBox: {fileID: 1519495737}
+  scoreBox: {fileID: 1519495737}
 --- !u!1 &488437147
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,7 +1557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 905927daeca24055ab2103a985905d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreText: {fileID: 1519495735}
+  scoreText: {fileID: 1519495735}
 --- !u!1 &1522876301
 GameObject:
   m_ObjectHideFlags: 0

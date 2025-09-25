@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f88d931299fb4f47a70bb064506e2361, type: 3}
   m_Name: AnimationSettings
   m_EditorClassIdentifier: 
-  _blockSpawnDuration: 0.25
-  _blockMoveDuration: 0.025
-  _blockMoveDelay: 0.01
-  _blockMergeDuration: 0.25
-  _blockMergeDelay: 0.01
-  _tremorDuration: 0.2
-  _tremorStrength: 0.4
-  _blockShakeDuration: 0.15
-  _blockShakeStrength: 0.15
-  _attachDuration: 0.35
-  _highlightDuration: 0.2
-  _highlightDelay: 0.035
-  _cellShakeScaleDuration: 0.2
-  _cellShakeScaleStrength: 0.1
+  blockSpawnDuration: 0.25
+  blockMoveDuration: 0.025
+  blockMoveDelay: 0.01
+  blockMergeDuration: 0.25
+  blockMergeDelay: 0.01
+  tremorDuration: 0.2
+  tremorStrength: 0.4
+  blockShakeDuration: 0.15
+  blockShakeStrength: 0.15
+  attachDuration: 0.35
+  highlightDuration: 0.2
+  highlightDelay: 0.035
+  cellShakeScaleDuration: 0.2
+  cellShakeScaleStrength: 0.1

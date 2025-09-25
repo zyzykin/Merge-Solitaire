@@ -5,26 +5,25 @@ namespace Whatwapp.MergeSolitaire.Game.UI
 {
     public class ScoreBox : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private TMPro.TMP_Text _scoreText;
-        
+        [Header("References")] [SerializeField]
+        private TMPro.TMP_Text scoreText;
+
         private int _currentScore;
-        
-        
-        
+
         public void SetScore(int score, bool animate = true)
         {
-            if ((score == 0) || (_currentScore>=score) || !animate)
+            if ((score == 0) || (_currentScore >= score) || !animate)
             {
                 SetImmediate(score);
                 return;
             }
+
             StartCoroutine(UpdateScore(score));
         }
 
         private void SetImmediate(int score)
         {
-            _scoreText.text = score.ToString();
+            scoreText.text = score.ToString();
             _currentScore = score;
         }
 
@@ -38,7 +37,7 @@ namespace Whatwapp.MergeSolitaire.Game.UI
             {
                 currentScore += step;
                 currentScore = Mathf.Min(currentScore, score);
-                _scoreText.text = currentScore.ToString();
+                scoreText.text = currentScore.ToString();
                 yield return null;
             }
         }

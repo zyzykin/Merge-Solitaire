@@ -6,17 +6,15 @@ namespace Whatwapp.Core.Audio
 {
     public class SFXManager : MonoBehaviour
     {
-        [Header("Clips")]
-        [SerializeField] private AudioClip[] _clips;
-        
-        [Header("Settings")]
-        [SerializeField] private int _numAudioSources = 5;
-        [SerializeField] private AudioMixerGroup _audioMixerGroup;
-        
+        [Header("Clips")] [SerializeField] private AudioClip[] clips;
+
+        [Header("Settings")] [SerializeField] private int numAudioSources = 5;
+        [SerializeField] private AudioMixerGroup audioMixerGroup;
+
         private AudioSource[] _audioSources;
-        
+
         private static SFXManager _instance;
-        
+
         public static SFXManager Instance
         {
             get
@@ -30,7 +28,7 @@ namespace Whatwapp.Core.Audio
                 return _instance;
             }
         }
-        
+
         private void Awake()
         {
             if (_instance == null)
@@ -43,30 +41,31 @@ namespace Whatwapp.Core.Audio
                 Destroy(gameObject);
                 return;
             }
+
             PrepareAudioSources();
         }
 
         private void PrepareAudioSources()
         {
-            _audioSources = new AudioSource[_numAudioSources];
-            for (var i = 0; i < _numAudioSources; i++)
+            _audioSources = new AudioSource[numAudioSources];
+            for (var i = 0; i < numAudioSources; i++)
             {
                 var go = new GameObject($"AudioSource_{i}");
                 go.transform.SetParent(transform);
                 _audioSources[i] = go.AddComponent<AudioSource>();
-                _audioSources[i].outputAudioMixerGroup = _audioMixerGroup;
+                _audioSources[i].outputAudioMixerGroup = audioMixerGroup;
             }
         }
-
-
+        
         public void PlayOneShot(string name, float volume = 1f)
         {
-            foreach (var clip in _clips)
+            foreach (var clip in clips)
             {
                 if (clip.name != name) continue;
                 PlayOneShot(clip, volume);
                 return;
             }
+
             Debug.LogWarning($"No audio found {name}, check the name correctly");
         }
 
@@ -77,11 +76,11 @@ namespace Whatwapp.Core.Audio
             {
                 return;
             }
+
             // change a bit the pitch to avoid the same sound to be played at the same time
             audioOut.pitch = Random.Range(0.9f, 1.1f);
             audioOut.PlayOneShot(clip, volume);
         }
-        
         
         private AudioSource GetAvailableAudioSource()
         {

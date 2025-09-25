@@ -19,10 +19,10 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 
         private readonly Vector2Int[] _directions =
         {
-            new Vector2Int(1, 0),
-            new Vector2Int(-1, 0),
-            new Vector2Int(0, 1),
-            new Vector2Int(0, -1),
+            new(1, 0),
+            new(-1, 0),
+            new(0, 1),
+            new(0, -1),
         };
 
         public MergeBlocksState(GameController gameController, Board board, BlockFactory blockFactory,
@@ -89,7 +89,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 () => { MergeCompleted = true; },
                 (mergeGroup, cell, targetCell) =>
                 {
-                    _gameController.Score += MergeCount * mergeGroup.Cells.Count;
+                    GameController.Score += MergeCount * mergeGroup.Cells.Count;
                     targetCell.Block = null;
                     cell.Block.Remove();
                 },
@@ -113,7 +113,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                         if (_foundationsController.TryAndAttach(info))
                         {
                             _sfxPresenter.PlayOneShot(Consts.GetFoundationSFX(seed));
-                            _gameController.Score += Consts.FOUNDATION_POINTS;
+                            GameController.Score += Consts.FOUNDATION_POINTS;
                         }
                     }
                 });

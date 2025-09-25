@@ -1,52 +1,54 @@
+using System;
 using UnityEngine;
 
-namespace Whatwapp.MergeSolitaire.Game
+namespace Whatwapp.MergeSolitaire.Game.Settings
 {
+    [Serializable]
     [CreateAssetMenu(menuName = "MergeSolitaire/Settings/Animations", fileName = "AnimationSettings")]
     public class AnimationSettings : ScriptableObject
     {
-        
-        [Header("Block Spawn")]
-        [SerializeField] private float _blockSpawnDuration = 0.25f;
-        
-        [Header("Block Move")]
-        [SerializeField] private float _blockMoveDuration = 0.01f;
-        [SerializeField] private float _blockMoveDelay = 0.0025f;
-        
-        [Header("Block Merge")]
-        [SerializeField] private float _blockMergeDuration = 0.1f;
-        [SerializeField] private float _blockMergeDelay = 0.2f;
-        [SerializeField] private float _tremorDuration = 0.25f;
-        [SerializeField] private float _tremorStrength = 0.1f;
-        
-        [Header("Block Shake")]
-        [SerializeField] private float _blockShakeDuration = 0.25f;
-        [SerializeField] private float _blockShakeStrength = 0.1f;
-        
-        [Header("Block To Foundation")]
-        [SerializeField] private float _attachDuration = 0.35f;
-        
-        [Header("Cell")]
-        [SerializeField] private float _highlightDuration = 0.05f;
-        [SerializeField] private float _highlightDelay = 0.03f;
-        
-        [Header("Column")]
-        [SerializeField]private float _cellShakeScaleDuration = 0.2f;
-        [SerializeField] private float _cellShakeScaleStrength = 0.1f;
-        
-        public float BlockMoveDuration => _blockMoveDuration;
-        public float BlockMoveDelay => _blockMoveDelay;
-        public float MergeDuration => _blockMergeDuration;
-        public float BlockMergeDelay => _blockMergeDelay;
-        public float TremorDuration => _tremorDuration;
-        public float TremorStrength => _tremorStrength;
-        public float SpawnDuration => _blockSpawnDuration;
-        public float AttachDuration => _attachDuration;
-        public float HighlightDelay => _highlightDelay;
-        public float HighlightDuration => _highlightDuration;
-        public float BlockShakeDuration => _blockShakeDuration;
-        public float BlockShakeStrength => _blockShakeStrength;
-        public float CellShakeScaleDuration => _cellShakeScaleDuration;
-        public float CellShakeScaleStrength => _cellShakeScaleStrength;
+        [Header("Block Spawn")] [SerializeField]
+        private float blockSpawnDuration = 0.25f;
+
+        [Header("Block Move")] [SerializeField]
+        private float blockMoveDuration = 0.01f;
+
+        [SerializeField] private float blockMoveDelay = 0.0025f;
+
+        [Header("Block Merge")] [SerializeField]
+        private float blockMergeDuration = 0.1f;
+
+        [SerializeField] private float blockMergeDelay = 0.2f;
+        [SerializeField] private float tremorDuration = 0.25f;
+        [SerializeField] private float tremorStrength = 0.1f;
+
+        [Header("Block Shake")] [SerializeField]
+        private float blockShakeDuration = 0.25f;
+
+        [SerializeField] private float blockShakeStrength = 0.1f;
+
+        [Header("Block To Foundation")] [SerializeField]
+        private float attachDuration = 0.35f;
+
+        [Header("Cell")] [SerializeField] private float highlightDuration = 0.05f;
+        [SerializeField] private float highlightDelay = 0.03f;
+
+        [Header("Column")] [SerializeField] private float cellShakeScaleDuration = 0.2f;
+        [SerializeField] private float cellShakeScaleStrength = 0.1f;
+
+        public float BlockMoveDuration => blockMoveDuration;
+        public float BlockMoveDelay => blockMoveDelay;
+        public float MergeDuration => blockMergeDuration;
+        public float BlockMergeDelay => blockMergeDelay;
+        public float TremorDuration => tremorDuration;
+        public float TremorStrength => tremorStrength;
+        public float SpawnDuration => blockSpawnDuration;
+        public float AttachDuration => attachDuration;
+        public float HighlightDelay => highlightDelay;
+        public float HighlightDuration => highlightDuration;
+        public float BlockShakeDuration => blockShakeDuration;
+        public float BlockShakeStrength => blockShakeStrength;
+        public float CellShakeScaleDuration => cellShakeScaleDuration;
+        public float CellShakeScaleStrength => cellShakeScaleStrength;
     }
 }

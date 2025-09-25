@@ -5,11 +5,11 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
     public abstract class BaseState : IState
     {
-        protected GameController _gameController;
+        protected readonly GameController GameController;
 
         protected BaseState(GameController gameController)
         {
-            _gameController = gameController;
+            GameController = gameController;
         }
 
         public virtual void OnEnter()

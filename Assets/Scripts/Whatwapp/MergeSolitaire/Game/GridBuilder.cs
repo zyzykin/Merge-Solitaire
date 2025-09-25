@@ -1,18 +1,16 @@
-using System.Collections.Generic;
 using UnityEngine;
-using Whatwapp.Core.Cameras;
 
 namespace Whatwapp.MergeSolitaire.Game
 {
     public class GridBuilder : MonoBehaviour
     {
-        
-        [Header("Grid Settings")] 
-        [SerializeField] private int _width = 5;
-        [SerializeField] private int _height = 7;
-        [SerializeField] private Cell _cellPrefab;
-        [SerializeField] private Lane _lanePrefab;
-        
+        [Header("Grid Settings")] [SerializeField]
+        private int width = 7;
+
+        [SerializeField] private int height = 10;
+        [SerializeField] private Cell cellPrefab;
+        [SerializeField] private Lane lanePrefab;
+
         private bool _isReady;
         private Board _board;
         private BlockFactory _blockFactory;
@@ -22,7 +20,7 @@ namespace Whatwapp.MergeSolitaire.Game
             _isReady = false;
             _board = board;
             _blockFactory = blockFactory;
-            _board.Init(_width, _height);
+            _board.Init(width, height);
         }
 
         public void CreateGrid()
@@ -35,35 +33,32 @@ namespace Whatwapp.MergeSolitaire.Game
 
         private void CreateCells()
         {
-            for (var x = 0; x < _width; x++)
+            for (var x = 0; x < width; x++)
             {
-                for (var y = 0; y < _height; y++)
+                for (var y = 0; y < height; y++)
                 {
-                    var coordinate = new Vector2Int(x, y);
-                    
                     // Set the position of the cell so the grid is centered in _gridParent
                     var position = _board.transform.position;
-                    position.x += x - _width / 2f;
-                    position.y += y - _height / 2f;
+                    position.x += x - width / 2f;
+                    position.y += y - height / 2f;
 
-                    var cell = Instantiate(_cellPrefab, position, Quaternion.identity, _board.transform);
+                    var cell = Instantiate(cellPrefab, position, Quaternion.identity, _board.transform);
                     cell.Init(new Vector2Int(x, y));
                     _board.AddCell(cell);
                 }
-                
+
                 // Create the lane background
                 var lanePosition = _board.transform.position;
-                lanePosition.x += x - _width / 2f;
+                lanePosition.x += x - width / 2f;
                 lanePosition.y += -0.81f;
-                var lane = Instantiate(_lanePrefab, lanePosition, Quaternion.identity,  _board.transform);
-                lane.Initialize(x, _height);
+                var lane = Instantiate(lanePrefab, lanePosition, Quaternion.identity, _board.transform);
+                lane.Initialize(x, height);
             }
-
         }
-        
+
         private void PrepareBlocks()
         {
-            for(var i=0; i<_width; i++)
+            for (var i = 0; i < width; i++)
             {
                 var numberOfBlocks = i + 1;
                 for (var j = 0; j < numberOfBlocks; j++)
@@ -73,13 +68,12 @@ namespace Whatwapp.MergeSolitaire.Game
                 }
             }
         }
-        
 
         public bool IsReady()
         {
             return _isReady;
         }
-        
+
         public void DestroyGrid()
         {
             _isReady = false;

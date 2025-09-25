@@ -33,7 +33,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         {
             if (GameOver || _blockPlayed) return;
             if (!Input.GetMouseButtonDown(0)) return;
-            if (_gameController.IsPaused) return;
+            if (GameController.IsPaused) return;
 
             var worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var coord = _board.GetCellCoordinates(worldPosition);

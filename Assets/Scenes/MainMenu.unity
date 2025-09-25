@@ -1374,7 +1374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e6967a53094d05996ff568940e8d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreBox: {fileID: 1956309935}
+  scoreBox: {fileID: 1956309935}
 --- !u!4 &1903467613
 Transform:
   m_ObjectHideFlags: 0
@@ -1442,7 +1442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 905927daeca24055ab2103a985905d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreText: {fileID: 472904826}
+  scoreText: {fileID: 472904826}
 --- !u!114 &1956309936
 MonoBehaviour:
   m_ObjectHideFlags: 0

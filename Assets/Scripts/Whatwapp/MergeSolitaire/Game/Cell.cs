@@ -4,10 +4,9 @@ namespace Whatwapp.MergeSolitaire.Game
 {
     public class Cell : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private CellVisual _cellVisual;
-        
-        
+        [Header("References")] [SerializeField]
+        private CellVisual cellVisual;
+
         public Vector2 Position => transform.position;
         public Vector2Int Coordinates { get; private set; }
 
@@ -22,8 +21,7 @@ namespace Whatwapp.MergeSolitaire.Game
                     _block = null;
                     return;
                 }
-
-
+                
                 if (_block != null)
                 {
                     Debug.LogException(new System.Exception($"Block already exists in cell {Coordinates}"));
@@ -40,17 +38,16 @@ namespace Whatwapp.MergeSolitaire.Game
 
         private Block _block;
 
-
         public void Init(Vector2Int coordinates)
         {
             Coordinates = coordinates;
             gameObject.name = $"Cell ({coordinates.x}, {coordinates.y})";
-            _cellVisual.Init(coordinates);
+            cellVisual.Init(coordinates);
         }
-        
+
         public void OnClick()
         {
-            _cellVisual.Highlight();
+            cellVisual.Highlight();
         }
     }
 }

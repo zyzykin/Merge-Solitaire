@@ -13,18 +13,18 @@ namespace Whatwapp.MergeSolitaire.Game
         [Header("References")] [SerializeField]
         private Board board;
 
-        [SerializeField] private GridBuilder _gridBuilder;
-        [SerializeField] private TargetBoundedOrthographicCamera _targetBoundedCamera;
-        [SerializeField] private BlockFactory _blockFactory;
-        [SerializeField] private NextBlockController _nextBlockController;
-        [SerializeField] private FoundationsController _foundationsController;
+        [SerializeField] private GridBuilder gridBuilder;
+        [SerializeField] private TargetBoundedOrthographicCamera targetBoundedCamera;
+        [SerializeField] private BlockFactory blockFactory;
+        [SerializeField] private NextBlockController nextBlockController;
+        [SerializeField] private FoundationsController foundationsController;
 
-        [SerializeField] private ScoreBox _scoreBox;
+        [SerializeField] private ScoreBox scoreBox;
 
         [Header("Presentation")] [SerializeField]
-        private BlockAnimationPresenter _blockAnimationPresenter;
+        private BlockAnimationPresenter blockAnimationPresenter;
 
-        [SerializeField] private SFXPresenter _sfxPresenter;
+        [SerializeField] private SFXPresenter sfxPresenter;
 
         private StateMachine _stateMachine;
 
@@ -50,7 +50,7 @@ namespace Whatwapp.MergeSolitaire.Game
                     PlayerPrefs.SetInt(Consts.PREFS_HIGHSCORE, _highScore);
                 }
 
-                _scoreBox.SetScore(_score);
+                scoreBox.SetScore(_score);
                 PlayerPrefs.SetInt(Consts.PREFS_LAST_SCORE, _score);
             }
         }
@@ -59,21 +59,21 @@ namespace Whatwapp.MergeSolitaire.Game
         {
             _stateMachine = new StateMachine();
 
-            _sfxPresenter.Initialize(SFXManager.Instance);
-            _blockAnimationPresenter.Initialize(_sfxPresenter);
+            sfxPresenter.Initialize(SFXManager.Instance);
+            blockAnimationPresenter.Initialize(sfxPresenter);
 
-            var generateLevel = new GenerateLevelState(this, board, _gridBuilder, _blockFactory, _targetBoundedCamera);
-            var extractBlock = new ExtractBlockState(this, _nextBlockController, _sfxPresenter);
-            var moveBlocks = new MoveBlocksState(this, board, _blockAnimationPresenter);
-            var mergeBlocks = new MergeBlocksState(this, board, _blockFactory, _foundationsController,
-                _sfxPresenter, _blockAnimationPresenter);
+            var generateLevel = new GenerateLevelState(this, board, gridBuilder, blockFactory, targetBoundedCamera);
+            var extractBlock = new ExtractBlockState(this, nextBlockController, sfxPresenter);
+            var moveBlocks = new MoveBlocksState(this, board, blockAnimationPresenter);
+            var mergeBlocks = new MergeBlocksState(this, board, blockFactory, foundationsController,
+                sfxPresenter, blockAnimationPresenter);
             var playBlockState =
-                new PlayBlockState(this, board, _nextBlockController, _sfxPresenter, _blockAnimationPresenter);
-            var gameOver = new GameOverState(this, _sfxPresenter);
-            var victory = new VictoryState(this, _sfxPresenter);
+                new PlayBlockState(this, board, nextBlockController, sfxPresenter, blockAnimationPresenter);
+            var gameOver = new GameOverState(this, sfxPresenter);
+            var victory = new VictoryState(this, sfxPresenter);
 
             _stateMachine.AddTransition(generateLevel, extractBlock,
-                new Predicate(() => _gridBuilder.IsReady()));
+                new Predicate(() => gridBuilder.IsReady()));
 
             _stateMachine.AddTransition(extractBlock, moveBlocks,
                 new Predicate(() => extractBlock.ExtractCompleted));
@@ -82,14 +82,14 @@ namespace Whatwapp.MergeSolitaire.Game
                 new Predicate(() => moveBlocks.CanMoveBlocks() == false));
 
             _stateMachine.AddTransition(mergeBlocks, victory,
-                new Predicate(() => _foundationsController.AllFoundationsCompleted));
+                new Predicate(() => foundationsController.AllFoundationsCompleted));
             _stateMachine.AddTransition(mergeBlocks, moveBlocks,
                 new Predicate(() =>
                     mergeBlocks.MergeCompleted && mergeBlocks.MergeCount > 0
-                                               && !_foundationsController.AllFoundationsCompleted));
+                                               && !foundationsController.AllFoundationsCompleted));
             _stateMachine.AddTransition(mergeBlocks, playBlockState,
                 new Predicate(() => mergeBlocks.MergeCompleted && mergeBlocks.MergeCount == 0
-                                                               && !_foundationsController.AllFoundationsCompleted));
+                                                               && !foundationsController.AllFoundationsCompleted));
 
             _stateMachine.AddTransition(playBlockState, extractBlock,
                 new Predicate(() => playBlockState.PlayBlockCompleted));

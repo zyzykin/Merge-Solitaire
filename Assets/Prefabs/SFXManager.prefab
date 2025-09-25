@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fefef318ed7943deb6169ea5a2976cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clips:
+  clips:
   - {fileID: 8300000, guid: 50b29aff6bbb34fca890c3e8c5a74451, type: 3}
   - {fileID: 8300000, guid: 4eb2a0cc257264881ad537dcb4a07138, type: 3}
   - {fileID: 8300000, guid: 5964e3385bff54683aecbaf1bd6b7168, type: 3}
@@ -55,5 +55,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 801cd16bc203949a5b844a6725f0b206, type: 3}
   - {fileID: 8300000, guid: 18ab55e8a4acd438398de8f35e20390f, type: 3}
   - {fileID: 8300000, guid: c2643def1fe094249a1f8fbd4e9a2076, type: 3}
-  _numAudioSources: 7
-  _audioMixerGroup: {fileID: -158779299284245349, guid: b04610147768b41558a4101011d9fe66, type: 2}
+  numAudioSources: 7
+  audioMixerGroup: {fileID: -158779299284245349, guid: b04610147768b41558a4101011d9fe66, type: 2}

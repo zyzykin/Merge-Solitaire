@@ -22,7 +22,6 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             _blockAnimationPresenter = blockAnimationPresenter;
         }
 
-
         public override void OnEnter()
         {
             base.OnEnter();

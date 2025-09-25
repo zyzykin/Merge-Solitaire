@@ -21,10 +21,10 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         {
             base.OnEnter();
 
-            _gameController.Score += Consts.VICTORY_POINTS;
+            GameController.Score += Consts.VICTORY_POINTS;
             PlayerPrefs.SetInt(Consts.PREFS_LAST_WON, 1);
 
-            _gameController.StartCoroutine(ShowPanel());
+            GameController.StartCoroutine(ShowPanel());
         }
 
         private IEnumerator ShowPanel()

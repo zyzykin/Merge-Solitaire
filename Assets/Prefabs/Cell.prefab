@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db5fc596deb40c7bd9e9681c66e5354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cellVisual: {fileID: 7991476678906646257}
+  cellVisual: {fileID: 7991476678906646257}
 --- !u!1 &807067643471337195
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +117,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1694001881
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.105882354, g: 0.15294118, b: 0.18431373, a: 1}
@@ -175,6 +175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9812db2314e45feb015d15bff3e4f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorSettings: {fileID: 11400000, guid: 4015302aa52ea4aaaac6e9f13dddca17, type: 2}
-  _animationSettings: {fileID: 11400000, guid: ccb81c4198f5440909f7ca5c5afdce38, type: 2}
-  _backgroundRenderer: {fileID: 4770625164593830316}
+  colorSettings: {fileID: 11400000, guid: 4015302aa52ea4aaaac6e9f13dddca17, type: 2}
+  animationSettings: {fileID: 11400000, guid: ccb81c4198f5440909f7ca5c5afdce38, type: 2}
+  backgroundRenderer: {fileID: 4770625164593830316}

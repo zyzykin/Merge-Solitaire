@@ -1,46 +1,43 @@
 using DG.Tweening;
 using UnityEngine;
+using Whatwapp.MergeSolitaire.Game.Settings;
 
 namespace Whatwapp.MergeSolitaire.Game
 {
     public class CellVisual : MonoBehaviour
     {
-        [Header("Settings")]
-        [SerializeField] private ColorSettings _colorSettings;
-        [SerializeField] private AnimationSettings _animationSettings;
-        
-        [Header("References")]
-        [SerializeField] private SpriteRenderer _backgroundRenderer;
-        
+        [Header("Settings")] [SerializeField] private ColorSettings colorSettings;
+        [SerializeField] private AnimationSettings animationSettings;
+
+        [Header("References")] [SerializeField]
+        private SpriteRenderer backgroundRenderer;
+
         private Vector2Int _coordinates;
         private Color _defaultColor;
         private Color _highlightColor;
-        
+
         public void Init(Vector2Int coordinates)
         {
             _coordinates = coordinates;
-            _defaultColor = _colorSettings.GetCellColor(coordinates);
-            _highlightColor = _colorSettings.GetCellHighlightColor(coordinates);
+            _defaultColor = colorSettings.GetCellColor(coordinates);
+            _highlightColor = colorSettings.GetCellHighlightColor(coordinates);
         }
 
-        
         public void Highlight()
         {
             Debug.Log("Highlighting cell");
-            
-             var sequence = DOTween.Sequence();
-             sequence.AppendInterval(_animationSettings.HighlightDelay * _coordinates.y);
-             sequence.Append(_backgroundRenderer.DOColor(_highlightColor, _animationSettings.HighlightDuration));
-             
-             sequence.Append(_backgroundRenderer.DOColor(_defaultColor, _animationSettings.HighlightDuration));
-             sequence.OnComplete(() =>
-             {
-                 Debug.Log("Highlight completed");
-                 _backgroundRenderer.color = _defaultColor;
-             });
-             sequence.Play();
+
+            var sequence = DOTween.Sequence();
+            sequence.AppendInterval(animationSettings.HighlightDelay * _coordinates.y);
+            sequence.Append(backgroundRenderer.DOColor(_highlightColor, animationSettings.HighlightDuration));
+
+            sequence.Append(backgroundRenderer.DOColor(_defaultColor, animationSettings.HighlightDuration));
+            sequence.OnComplete(() =>
+            {
+                Debug.Log("Highlight completed");
+                backgroundRenderer.color = _defaultColor;
+            });
+            sequence.Play();
         }
-        
-        
     }
 }

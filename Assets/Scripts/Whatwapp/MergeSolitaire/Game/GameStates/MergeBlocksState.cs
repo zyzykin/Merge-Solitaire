@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Whatwapp.Core.Extensions;
 using Whatwapp.Core.Utils;
@@ -129,7 +130,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 {
                     if (visited[x, y]) continue;
                     var cell = _board.GetCell(x, y);
-                    if (cell.IsEmpty) continue;
+                    if (cell.IsEmpty || cell.Block.Value == BlockValue.Bomb) continue;
                     var group = GetMergeableCells(cell, visited);
                     if (group.Count > 1)
                     {
@@ -158,7 +159,8 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     var nextCell = _board.GetCell(currentCell.Coordinates + direction);
                     if (nextCell == null || nextCell.IsEmpty ||
                         visited[nextCell.Coordinates.x, nextCell.Coordinates.y] ||
-                        nextCell.Block.Value != value) continue;
+                        nextCell.Block.Value != value ||
+                        nextCell.Block.Value == BlockValue.Bomb) continue;
                     visited[nextCell.Coordinates.x, nextCell.Coordinates.y] = true;
                     queue.Enqueue(nextCell);
                 }

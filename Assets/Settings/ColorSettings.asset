@@ -22,6 +22,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 71afee76a9972406c82b977e2c3ce868, type: 3}
   - {fileID: 21300000, guid: c9b1653efce694a5fad62719b171d0b8, type: 3}
   - {fileID: 21300000, guid: 68810cedaba004aa2accb591856d3865, type: 3}
+  - {fileID: 21300000, guid: 211170464ab9f4209bb8394518bbdd13, type: 3}
   foundationSprites:
   - {fileID: 21300000, guid: ad72103956f774dcab5baac3141e49fd, type: 3}
   - {fileID: 21300000, guid: 3f2959c0db4864f5790b0406b4cbcd1f, type: 3}

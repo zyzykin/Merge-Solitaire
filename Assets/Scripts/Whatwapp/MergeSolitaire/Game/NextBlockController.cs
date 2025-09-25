@@ -27,23 +27,36 @@ namespace Whatwapp.MergeSolitaire.Game
         public void ExtractNextBlock()
         {
             if (_nextBlock != null) return;
-            var seed = EnumUtils.GetRandom<BlockSeed>();
-            var value = EnumUtils.GetRandom(BlockValue.Ace, BlockValue.King);
 
-            if (Random.value < probabilityOfGoodBlock)
+            BlockValue value;
+            BlockSeed seed;
+
+            if (Random.value < blockFactory.BombSpawnChance)
             {
-                if (Random.value < probabilityToSpawnAttachableBlock)
+                value = BlockValue.Bomb;
+                seed = BlockSeed.Bomb;
+                Debug.Log("Next block is a bomb");
+            }
+            else
+            {
+                seed = EnumUtils.GetRandom(BlockSeed.Clubs, BlockSeed.Spades);
+                value = EnumUtils.GetRandom(BlockValue.Ace, BlockValue.King);
+
+                if (Random.value < probabilityOfGoodBlock)
                 {
-                    value = ExtractAttachableBlock(value);
-                }
-                else
-                {
-                    var nextBlocks = foundationsController.GetNextBlocks();
-                    if (nextBlocks.Count > 0)
+                    if (Random.value < probabilityToSpawnAttachableBlock)
                     {
-                        var item = nextBlocks[Random.Range(0, nextBlocks.Count)];
-                        value = item.Item2;
-                        seed = item.Item1;
+                        value = ExtractAttachableBlock(value);
+                    }
+                    else
+                    {
+                        var nextBlocks = foundationsController.GetNextBlocks();
+                        if (nextBlocks.Count > 0)
+                        {
+                            var item = nextBlocks[Random.Range(0, nextBlocks.Count)];
+                            value = item.Item2;
+                            seed = item.Item1;
+                        }
                     }
                 }
             }

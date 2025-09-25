@@ -108,5 +108,15 @@ namespace Whatwapp.MergeSolitaire.Game.Presentation
         {
             block.transform.DOScale(Vector3.one, animationSettings.MergeDuration).SetEase(Ease.OutBack);
         }
+
+        public void AnimateExplosion(Block block)
+        {
+            var sequence = DOTween.Sequence();
+            sequence.Append(block.transform.DOScale(Vector3.one * 1.5f, animationSettings.ExplosionDuration)
+                .SetEase(Ease.OutQuad));
+            sequence.Append(block.transform.DOScale(Vector3.zero, animationSettings.ExplosionDuration / 2)
+                .SetEase(Ease.InQuad));
+            sequence.Play();
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace Whatwapp.MergeSolitaire.Game
         {
             if (_cells != null)
             {
-                DestoryCells();
+                DestroyCells();
             }
 
             _width = width;
@@ -27,14 +27,13 @@ namespace Whatwapp.MergeSolitaire.Game
             _cells = new Cell[_width, _height];
         }
 
-
         public void AddCell(Cell cell)
         {
             _cells[cell.Coordinates.x, cell.Coordinates.y] = cell;
             Cells.Add(cell);
         }
 
-        public void DestoryCells()
+        public void DestroyCells()
         {
             foreach (var cell in _cells)
             {
@@ -82,7 +81,6 @@ namespace Whatwapp.MergeSolitaire.Game
         {
             var cellSize = 1f;
             var halfCellSize = cellSize / 2f;
-            // Take into account that the pivot is not at the center of the grid
             worldPosition += new Vector3((_width * halfCellSize) + halfCellSize, 0, -_height * halfCellSize);
             worldPosition -= transform.position;
 
@@ -95,7 +93,6 @@ namespace Whatwapp.MergeSolitaire.Game
         public List<Block> GetAttachableBlocks()
         {
             var result = new List<Block>();
-            // for each column search the first cell that is not empty
             for (var x = 0; x < _width; x++)
             {
                 for (var y = 0; y < _height; y++)
@@ -117,6 +114,25 @@ namespace Whatwapp.MergeSolitaire.Game
             {
                 var cell = GetCell(x, y);
                 result.Add(cell);
+            }
+
+            return result;
+        }
+
+        public List<Cell> GetNeighbors(Cell cell, int distance)
+        {
+            var result = new List<Cell>();
+            var directions = new Vector2Int[]
+            {
+                new(distance, 0), new(-distance, 0), new(0, distance), new(0, -distance)
+            };
+            foreach (var dir in directions)
+            {
+                var neighbor = GetCell(cell.Coordinates + dir);
+                if (neighbor != null)
+                {
+                    result.Add(neighbor);
+                }
             }
 
             return result;

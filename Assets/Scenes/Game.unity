@@ -334,6 +334,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 1399529986098310984, guid: 0b4734375851c4f84aa141fb4dca036c, type: 3}
+  bombPrefab: {fileID: 1399529986098310984, guid: 3df18390b7f2e42dc804d07f40a72bc7, type: 3}
+  bombSpawnChance: 0.1
 --- !u!1 &356620107
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ namespace Whatwapp.MergeSolitaire.Game
         Ten,
         Jack,
         Queen,
-        King
+        King,
+        Bomb
     }
 }

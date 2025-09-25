@@ -5,6 +5,7 @@ namespace Whatwapp.MergeSolitaire.Game
         Clubs,
         Diamonds,
         Hearts,
-        Spades
+        Spades,
+        Bomb
     }
 }

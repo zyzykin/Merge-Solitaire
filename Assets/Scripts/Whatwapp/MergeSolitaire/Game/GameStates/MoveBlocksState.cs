@@ -7,19 +7,20 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
     public class MoveBlocksState : BaseState
     {
         private bool _isMovingBlocks;
-        private bool _canMoveBlocks;
         private readonly Board _board;
         private readonly IBlockAnimationPresenter _blockAnimationPresenter;
+        private readonly ISFXPresenter _sfxPresenter;
 
         private readonly List<Cell> _movingCells;
         private int _startingRow;
 
         public MoveBlocksState(GameController gameController, Board board,
-            IBlockAnimationPresenter blockAnimationPresenter) : base(gameController)
+            IBlockAnimationPresenter blockAnimationPresenter, ISFXPresenter sfxPresenter) : base(gameController)
         {
             _board = board;
             _movingCells = new List<Cell>();
             _blockAnimationPresenter = blockAnimationPresenter;
+            _sfxPresenter = sfxPresenter;
         }
 
         public override void OnEnter()
@@ -50,6 +51,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             else
             {
                 _isMovingBlocks = false;
+                CheckAndExplodeBombs();
             }
         }
 
@@ -86,7 +88,29 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 movePairs.Add((block, targetCell.Position));
             }
 
-            _blockAnimationPresenter.AnimateMoves(movePairs, () => { _isMovingBlocks = false; });
+            _blockAnimationPresenter.AnimateMoves(movePairs, () =>
+            {
+                _isMovingBlocks = false;
+                CheckAndExplodeBombs();
+            });
+        }
+
+        private void CheckAndExplodeBombs()
+        {
+            var visitedCells = new HashSet<Cell>();
+            foreach (var cell in _board.Cells)
+            {
+                if (cell.IsEmpty || cell.Block.Value != BlockValue.Bomb) continue;
+
+                if (cell.Coordinates.y == 0)
+                {
+                    var bombBlock = cell.Block as BombBlock;
+                    if (bombBlock != null)
+                    {
+                        bombBlock.Explode(_board, cell, _blockAnimationPresenter, _sfxPresenter, visitedCells);
+                    }
+                }
+            }
         }
 
         public bool CanMoveBlocks()

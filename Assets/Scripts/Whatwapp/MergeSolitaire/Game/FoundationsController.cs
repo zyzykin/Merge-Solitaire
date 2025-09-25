@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,6 +13,7 @@ namespace Whatwapp.MergeSolitaire.Game
         private BlockFactory blockFactory;
 
         [SerializeField] private FoundationPileController[] foundationPiles;
+
         public bool AllFoundationsCompleted => foundationPiles.All(x => x.IsCompleted);
 
         private void Awake()
@@ -23,22 +23,30 @@ namespace Whatwapp.MergeSolitaire.Game
 
         private void Init()
         {
+            var validSeeds = new[] { BlockSeed.Clubs, BlockSeed.Diamonds, BlockSeed.Hearts, BlockSeed.Spades };
             if ((foundationPiles == null || foundationPiles.Length == 0) ||
-                (foundationPiles.Length != Enum.GetValues(typeof(BlockSeed)).Length))
+                (foundationPiles.Length != validSeeds.Length))
             {
-                Debug.LogError("Foundation piles are not set correctly");
+                Debug.LogError(
+                    $"Foundation piles are not set correctly. Expected {validSeeds.Length} piles, got {foundationPiles?.Length ?? 0}.");
                 return;
             }
 
             for (var i = 0; i < foundationPiles.Length; i++)
             {
-                var seed = (BlockSeed)i;
+                var seed = validSeeds[i];
                 foundationPiles[i].Init(seed, colorSettings.GetFoundationSprite(seed));
             }
         }
 
         public bool TryAndAttach(BlockToFoundationInfo info)
         {
+            if (info.Seed == BlockSeed.Bomb)
+            {
+                Debug.LogWarning("Cannot attach Bomb to foundation");
+                return false;
+            }
+
             var foundationPile = foundationPiles.FirstOrDefault(x => x.Seed == info.Seed);
             if ((foundationPile == null) || (!foundationPile.CanAttach(info.Seed, info.Value))) return false;
 

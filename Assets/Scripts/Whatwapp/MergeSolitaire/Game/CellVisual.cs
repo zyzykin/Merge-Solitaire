@@ -19,8 +19,8 @@ namespace Whatwapp.MergeSolitaire.Game
         public void Init(Vector2Int coordinates)
         {
             _coordinates = coordinates;
-            _defaultColor = colorSettings.GetCellColor(coordinates);
-            _highlightColor = colorSettings.GetCellHighlightColor(coordinates);
+            _defaultColor = colorSettings.GetCellColor();
+            _highlightColor = colorSettings.GetCellHighlightColor();
         }
 
         public void Highlight()

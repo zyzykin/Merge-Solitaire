@@ -37,7 +37,6 @@ namespace Whatwapp.MergeSolitaire.Game
             {
                 for (var y = 0; y < height; y++)
                 {
-                    // Set the position of the cell so the grid is centered in _gridParent
                     var position = _board.transform.position;
                     position.x += x - width / 2f;
                     position.y += y - height / 2f;
@@ -47,7 +46,6 @@ namespace Whatwapp.MergeSolitaire.Game
                     _board.AddCell(cell);
                 }
 
-                // Create the lane background
                 var lanePosition = _board.transform.position;
                 lanePosition.x += x - width / 2f;
                 lanePosition.y += -0.81f;
@@ -63,7 +61,7 @@ namespace Whatwapp.MergeSolitaire.Game
                 var numberOfBlocks = i + 1;
                 for (var j = 0; j < numberOfBlocks; j++)
                 {
-                    var block = _blockFactory.CreateStartingBlock();
+                    var block = _blockFactory.CreateStartingBlock(j == 0);
                     _board.AddStartingBlock(block, new Vector2Int(i, j));
                 }
             }
@@ -77,7 +75,7 @@ namespace Whatwapp.MergeSolitaire.Game
         public void DestroyGrid()
         {
             _isReady = false;
-            _board.DestoryCells();
+            _board.DestroyCells();
         }
     }
 }

@@ -27,6 +27,9 @@ namespace Whatwapp.MergeSolitaire.Game.Settings
 
         [SerializeField] private float blockShakeStrength = 0.1f;
 
+        [Header("Block Explosion")] [SerializeField]
+        private float explosionDuration = 0.3f;
+
         [Header("Block To Foundation")] [SerializeField]
         private float attachDuration = 0.35f;
 
@@ -50,5 +53,6 @@ namespace Whatwapp.MergeSolitaire.Game.Settings
         public float BlockShakeStrength => blockShakeStrength;
         public float CellShakeScaleDuration => cellShakeScaleDuration;
         public float CellShakeScaleStrength => cellShakeScaleStrength;
+        public float ExplosionDuration => explosionDuration;
     }
 }

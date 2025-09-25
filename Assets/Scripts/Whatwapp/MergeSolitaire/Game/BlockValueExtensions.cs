@@ -17,6 +17,7 @@ namespace Whatwapp.MergeSolitaire.Game
             BlockValue.Jack => "J",
             BlockValue.Queen => "Q",
             BlockValue.King => "K",
+            BlockValue.Bomb => "",
             _ => throw new System.ArgumentOutOfRangeException(nameof(value), value, null)
         };
     }

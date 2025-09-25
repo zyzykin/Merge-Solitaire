@@ -21,8 +21,6 @@ namespace Whatwapp.MergeSolitaire.Game
 
         [SerializeField] private ScoreBox _scoreBox;
 
-        [Header("Settings")] [SerializeField] private AnimationSettings _animationSettings;
-
         [Header("Presentation")] [SerializeField]
         private BlockAnimationPresenter _blockAnimationPresenter;
 
@@ -62,7 +60,7 @@ namespace Whatwapp.MergeSolitaire.Game
             _stateMachine = new StateMachine();
 
             _sfxPresenter.Initialize(SFXManager.Instance);
-            _blockAnimationPresenter.Initialize(_animationSettings, _sfxPresenter);
+            _blockAnimationPresenter.Initialize(_sfxPresenter);
 
             var generateLevel = new GenerateLevelState(this, board, _gridBuilder, _blockFactory, _targetBoundedCamera);
             var extractBlock = new ExtractBlockState(this, _nextBlockController, _sfxPresenter);
@@ -97,7 +95,7 @@ namespace Whatwapp.MergeSolitaire.Game
                 new Predicate(() => playBlockState.PlayBlockCompleted));
             _stateMachine.AddTransition(playBlockState, gameOver,
                 new Predicate(() => playBlockState.GameOver));
-            
+
             _stateMachine.SetState(generateLevel);
 
             _highScore = PlayerPrefs.GetInt(Consts.PREFS_HIGHSCORE, 0);

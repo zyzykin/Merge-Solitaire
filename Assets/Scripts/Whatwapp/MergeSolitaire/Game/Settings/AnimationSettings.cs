@@ -37,6 +37,7 @@ namespace Whatwapp.MergeSolitaire.Game
         public float BlockMoveDuration => _blockMoveDuration;
         public float BlockMoveDelay => _blockMoveDelay;
         public float MergeDuration => _blockMergeDuration;
+        public float BlockMergeDelay => _blockMergeDelay;
         public float TremorDuration => _tremorDuration;
         public float TremorStrength => _tremorStrength;
         public float SpawnDuration => _blockSpawnDuration;

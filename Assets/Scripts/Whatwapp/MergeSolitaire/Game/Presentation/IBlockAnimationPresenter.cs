@@ -7,7 +7,7 @@ namespace Whatwapp.MergeSolitaire.Game.Presentation
 {
     public interface IBlockAnimationPresenter
     {
-        void Initialize(AnimationSettings animationSettings, ISFXPresenter sfxPresenter);
+        void Initialize(ISFXPresenter sfxPresenter);
 
         void AnimateMerges(List<MergeGroup> mergeGroups, Action onAllComplete,
             Action<MergeGroup, Cell, Cell> onSubMergeComplete, Action<MergeGroup> onFirstRemoved,

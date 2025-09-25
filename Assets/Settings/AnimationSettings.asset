@@ -16,7 +16,7 @@ MonoBehaviour:
   _blockMoveDuration: 0.025
   _blockMoveDelay: 0.01
   _blockMergeDuration: 0.25
-  _blockMergeDelay: 0.2
+  _blockMergeDelay: 0.01
   _tremorDuration: 0.2
   _tremorStrength: 0.4
   _blockShakeDuration: 0.15
@@ -24,3 +24,5 @@ MonoBehaviour:
   _attachDuration: 0.35
   _highlightDuration: 0.2
   _highlightDelay: 0.035
+  _cellShakeScaleDuration: 0.2
+  _cellShakeScaleStrength: 0.1

@@ -9,8 +9,8 @@ namespace Whatwapp.MergeSolitaire.Game.UI
     {
         [Header("References")] [SerializeField]
         private ScoreBox scoreBox;
-        [Header("Buttons")]
-        [SerializeField] private Button menuButton;
+
+        [Header("Buttons")] [SerializeField] private Button menuButton;
         [SerializeField] private Button playButton;
 
         private void OnEnable()
@@ -19,7 +19,7 @@ namespace Whatwapp.MergeSolitaire.Game.UI
             var lastScore = PlayerPrefs.GetInt(Consts.PREFS_LAST_SCORE, 0);
             Debug.Log("Last score: " + lastScore);
             scoreBox.SetScore(lastScore);
-            
+
             menuButton.onClick.AddListener(OnMenuButtonClicked);
             playButton.onClick.AddListener(OnPlayButtonClicked);
         }
@@ -33,7 +33,6 @@ namespace Whatwapp.MergeSolitaire.Game.UI
         private void OnMenuButtonClicked()
         {
             SceneLoadingManager.Instance.LoadMainMenu();
-            //SceneManager.LoadScene(Consts.SCENE_MAIN_MENU);
         }
 
         private void OnPlayButtonClicked()

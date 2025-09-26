@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Whatwapp.Core.Cameras;
 using Whatwapp.Core.FSM;
@@ -130,7 +129,6 @@ namespace Whatwapp.MergeSolitaire.Game
         {
             IsPaused = true;
             SceneLoadingManager.Instance.LoadPauseMenu();
-           // SceneManager.LoadScene(Consts.SCENE_PAUSE_MENU, LoadSceneMode.Additive);
         }
     }
 }

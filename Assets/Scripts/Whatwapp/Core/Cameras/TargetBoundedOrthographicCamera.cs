@@ -28,7 +28,6 @@ namespace Whatwapp.Core.Cameras
             if (orthographicCamera.orthographic == false)
             {
                 Debug.LogError("The camera is not orthographic");
-                return;
             }
         }
 

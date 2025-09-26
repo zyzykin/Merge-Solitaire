@@ -109,11 +109,13 @@ namespace Whatwapp.MergeSolitaire.Game.Presentation
         }
 
         public void AnimateExplosion(Block block, Board board = null, Cell currentCell = null,
-            HashSet<Cell> visitedCells = null, Action onComplete = null, Action<Block, Cell> onBlockAnimationComplete = null)
+            HashSet<Cell> visitedCells = null, Action onComplete = null,
+            Action<Block, Cell> onBlockAnimationComplete = null)
         {
             var sequence = DOTween.Sequence();
 
-            sequence.Append(block.transform.DOScale(Vector3.one * animationSettings.BombExplosionScale, animationSettings.ExplosionDuration)
+            sequence.Append(block.transform
+                .DOScale(Vector3.one * animationSettings.BombExplosionScale, animationSettings.ExplosionDuration)
                 .SetEase(Ease.OutQuad));
             sequence.Append(block.transform.DOScale(Vector3.zero, animationSettings.ExplosionDuration / 2)
                 .SetEase(Ease.InQuad));
@@ -159,14 +161,16 @@ namespace Whatwapp.MergeSolitaire.Game.Presentation
                             sequence.AppendCallback(() =>
                             {
                                 _sfxPresenter.PlayOneShot(Consts.SFX_Explosion);
-                                AnimateExplosion(neighborBlock, board, neighborCell, visitedCells, null, onBlockAnimationComplete);
+                                AnimateExplosion(neighborBlock, board, neighborCell, visitedCells, null,
+                                    onBlockAnimationComplete);
                             });
                         }
                         else
                         {
                             sequence.AppendCallback(() =>
                             {
-                                AnimateDestroy(neighborBlock, () => onBlockAnimationComplete?.Invoke(neighborBlock, neighborCell));
+                                AnimateDestroy(neighborBlock,
+                                    () => onBlockAnimationComplete?.Invoke(neighborBlock, neighborCell));
                             });
                         }
                     }
@@ -182,7 +186,8 @@ namespace Whatwapp.MergeSolitaire.Game.Presentation
         private void AnimateDestroy(Block block, Action onComplete = null)
         {
             var sequence = DOTween.Sequence();
-            sequence.Append(block.transform.DOScale(Vector3.one * animationSettings.DestroyScale, animationSettings.ExplosionDuration / 2)
+            sequence.Append(block.transform
+                .DOScale(Vector3.one * animationSettings.DestroyScale, animationSettings.ExplosionDuration / 2)
                 .SetEase(Ease.OutQuad));
             sequence.Append(block.transform.DOScale(Vector3.zero, animationSettings.ExplosionDuration / 2)
                 .SetEase(Ease.InQuad));

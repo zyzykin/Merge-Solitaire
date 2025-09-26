@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Whatwapp.MergeSolitaire.Game.Presentation;
 using Whatwapp.MergeSolitaire.Game.Scenes;
 
@@ -34,7 +33,6 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             _sfxPresenter.PlayOneShot(Consts.SFX_Victory);
             yield return new WaitForSeconds(ShowPanelDelay2);
             SceneLoadingManager.Instance.LoadEndGame();
-            //SceneManager.LoadScene(Consts.SCENE_END_GAME);
         }
     }
 }

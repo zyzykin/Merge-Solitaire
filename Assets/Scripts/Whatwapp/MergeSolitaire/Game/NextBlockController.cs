@@ -7,14 +7,14 @@ namespace Whatwapp.MergeSolitaire.Game
 {
     public class NextBlockController : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private BlockFactory blockFactory;
+        [Header("References")] [SerializeField]
+        private BlockFactory blockFactory;
+
         [SerializeField] private Transform spawnPoint;
         [SerializeField] private Board board;
         [SerializeField] private FoundationsController foundationsController;
 
-        [Header("Settings")]
-        [SerializeField] private AnimationSettings animationSettings;
+        [Header("Settings")] [SerializeField] private AnimationSettings animationSettings;
         [SerializeField] [Range(0f, 1f)] private float probabilityOfGoodBlock = 0.5f;
         [SerializeField] [Range(0f, 1f)] private float probabilityToSpawnAttachableBlock = 0.1f;
 

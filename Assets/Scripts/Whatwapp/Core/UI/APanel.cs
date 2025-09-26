@@ -8,37 +8,36 @@ namespace Whatwapp.Core.UI
 {
     public abstract class APanel<T> : MonoBehaviour, IPanel<T>
     {
-        [Header("Settings")] 
-        [SerializeField] protected bool _hideOnStart = true;
-        [SerializeField] protected float _fadeDuration = 0.5f;
+        [Header("Settings")] [SerializeField] protected bool hideOnStart = true;
+        [SerializeField] protected float fadeDuration = 0.5f;
 
-        [Header("References")] 
-        [SerializeField] protected CanvasGroup _canvasGroup;
+        [Header("References")] [SerializeField]
+        protected CanvasGroup canvasGroup;
 
-        protected TweenerCore<float,float,FloatOptions> _tween;
+        protected TweenerCore<float, float, FloatOptions> Tween;
 
         protected virtual void Awake()
         {
-            if (_canvasGroup == null)
-                _canvasGroup = GetComponent<CanvasGroup>();
+            if (canvasGroup == null)
+                canvasGroup = GetComponent<CanvasGroup>();
 
             Setup();
         }
 
         protected virtual void Setup()
         {
-            if (_hideOnStart)
+            if (hideOnStart)
             {
-                _canvasGroup.alpha = 0;
-                _canvasGroup.blocksRaycasts = false;
-                _canvasGroup.interactable = false;
+                canvasGroup.alpha = 0;
+                canvasGroup.blocksRaycasts = false;
+                canvasGroup.interactable = false;
                 IsVisible = false;
             }
             else
             {
-                _canvasGroup.alpha = 1;
-                _canvasGroup.blocksRaycasts = true;
-                _canvasGroup.interactable = true;
+                canvasGroup.alpha = 1;
+                canvasGroup.blocksRaycasts = true;
+                canvasGroup.interactable = true;
                 IsVisible = true;
             }
         }
@@ -60,32 +59,32 @@ namespace Whatwapp.Core.UI
 
         public void Show(Action onShowComplete = null)
         {
-            _tween?.Kill();
-            _canvasGroup.alpha = 0;
-            _canvasGroup.blocksRaycasts = true;
-            _canvasGroup.interactable = false;
+            Tween?.Kill();
+            canvasGroup.alpha = 0;
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.interactable = false;
             IsVisible = true;
-            _tween = _canvasGroup.DOFade(1, 0.5f).SetEase(Ease.InOutSine)
+            Tween = canvasGroup.DOFade(1, 0.5f).SetEase(Ease.InOutSine)
                 .OnComplete(() =>
                 {
-                    _canvasGroup.interactable = true;
-                    _canvasGroup.alpha = 1;
+                    canvasGroup.interactable = true;
+                    canvasGroup.alpha = 1;
                     onShowComplete?.Invoke();
                 });
         }
 
         public void Hide(Action onHideComplete = null)
         {
-            _tween?.Kill();
-            _canvasGroup.alpha = 1;
-            _canvasGroup.blocksRaycasts = false;
-            _canvasGroup.interactable = false;
+            Tween?.Kill();
+            canvasGroup.alpha = 1;
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.interactable = false;
             IsVisible = false;
-            _tween = _canvasGroup.DOFade(0, 0.5f).SetEase(Ease.InOutSine)
+            Tween = canvasGroup.DOFade(0, 0.5f).SetEase(Ease.InOutSine)
                 .OnComplete(() =>
                 {
-                    _canvasGroup.interactable = false;
-                    _canvasGroup.alpha = 0;
+                    canvasGroup.interactable = false;
+                    canvasGroup.alpha = 0;
                     onHideComplete?.Invoke();
                 });
         }

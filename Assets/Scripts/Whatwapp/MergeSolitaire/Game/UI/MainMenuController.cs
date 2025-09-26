@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Whatwapp.MergeSolitaire.Game.Scenes;
 
@@ -9,6 +8,7 @@ namespace Whatwapp.MergeSolitaire.Game.UI
     {
         [Header("References")] [SerializeField]
         private ScoreBox scoreBox;
+
         [SerializeField] private Button playButton;
 
         private void Start()
@@ -31,7 +31,6 @@ namespace Whatwapp.MergeSolitaire.Game.UI
         private void OnPlayClicked()
         {
             SceneLoadingManager.Instance.LoadGame();
-           // SceneManager.LoadScene(Consts.SCENE_GAME);
         }
     }
 }

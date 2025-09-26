@@ -16,7 +16,8 @@ namespace Whatwapp.MergeSolitaire.Game
             Action<Block, Cell> onBlockAnimationComplete = null)
         {
             sfxPresenter.PlayOneShot(Consts.SFX_Explosion);
-            animationPresenter.AnimateExplosion(this, board, currentCell, visitedCells, onComplete, onBlockAnimationComplete);
+            animationPresenter.AnimateExplosion(this, board, currentCell, visitedCells, onComplete,
+                onBlockAnimationComplete);
         }
     }
 }

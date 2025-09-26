@@ -7,11 +7,9 @@ namespace Whatwapp.Core.Audio
 {
     public class SFXManager : MonoBehaviour
     {
-        [Header("Clips")]
-        [SerializeField] private AudioClip[] clips;
+        [Header("Clips")] [SerializeField] private AudioClip[] clips;
 
-        [Header("Settings")]
-        [SerializeField] private int initialPoolSize = 5;
+        [Header("Settings")] [SerializeField] private int initialPoolSize = 5;
         [SerializeField] private int maxPoolSize = 20;
         [SerializeField] private AudioMixerGroup audioMixerGroup;
 

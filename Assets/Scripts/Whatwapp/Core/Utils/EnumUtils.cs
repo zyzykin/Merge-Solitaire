@@ -7,7 +7,7 @@ namespace Whatwapp.Core.Utils
             var values = (T[])System.Enum.GetValues(typeof(T));
             return values[UnityEngine.Random.Range(0, values.Length)];
         }
-        
+
         public static T GetRandom<T>(T min, T max) where T : System.Enum
         {
             var values = (T[])System.Enum.GetValues(typeof(T));

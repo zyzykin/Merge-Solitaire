@@ -21,7 +21,7 @@ namespace Whatwapp.MergeSolitaire.Game
                     _block = null;
                     return;
                 }
-                
+
                 if (_block != null)
                 {
                     Debug.LogException(new System.Exception($"Block already exists in cell {Coordinates}"));

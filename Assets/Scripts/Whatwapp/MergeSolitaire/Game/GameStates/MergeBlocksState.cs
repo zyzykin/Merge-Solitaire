@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Whatwapp.Core.Extensions;
-using Whatwapp.Core.Utils;
 using Whatwapp.MergeSolitaire.Game.Presentation;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates

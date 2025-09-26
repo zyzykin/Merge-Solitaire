@@ -8,27 +8,21 @@ namespace Whatwapp.MergeSolitaire.Game.UI
 {
     public class LoadingUI : MonoBehaviour
     {
-        public Slider progressBar; // Прогресс-бар
-        public TextMeshProUGUI loadingText; // Текст "Loading..."
-        public CanvasGroup canvasGroup; // Для fade-out
-        public float dotUpdateInterval = 0.5f; // Интервал обновления точек
+        public Slider progressBar;
+        public TextMeshProUGUI loadingText;
+        public CanvasGroup canvasGroup;
+        public float dotUpdateInterval = 0.5f;
 
-        private float _minLoadingTime;
-        private int _dotCount = 0;
-        private Coroutine _dotCoroutine;
+        private int _dotCount;
 
         public void StartLoading(float minTime)
         {
-            _minLoadingTime = minTime;
             gameObject.SetActive(true);
             if (canvasGroup != null) canvasGroup.alpha = 1f;
             progressBar.value = 0f;
             UpdateDots();
-            _dotCoroutine = StartCoroutine(UpdateDotsCoroutine());
-            DOVirtual.Float(0f, 1f, minTime, (v) =>
-            {
-                progressBar.value = v;
-            });
+            StartCoroutine(UpdateDotsCoroutine());
+            DOVirtual.Float(0f, 1f, minTime, (v) => { progressBar.value = v; });
         }
 
         private IEnumerator UpdateDotsCoroutine()
@@ -42,7 +36,7 @@ namespace Whatwapp.MergeSolitaire.Game.UI
 
         private void UpdateDots()
         {
-            string dots = new string('.', _dotCount);
+            var dots = new string('.', _dotCount);
             loadingText.text = "Loading" + dots;
             _dotCount = (_dotCount + 1) % 4;
         }

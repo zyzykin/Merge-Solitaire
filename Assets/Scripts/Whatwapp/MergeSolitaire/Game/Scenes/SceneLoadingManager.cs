@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,15 +25,15 @@ namespace Whatwapp.MergeSolitaire.Game.Scenes
             }
         }
 
-        public event System.Action OnLoadingComplete;
+        public event Action OnLoadingComplete;
 
         private AsyncOperation _asyncOp;
         private bool _isLoading;
         private float _timer;
 
-        private IEnumerator LoadSceneAsync(string sceneName, LoadSceneMode mode, float minLoadingTime)
+        private IEnumerator LoadSceneAsync(string sceneName, LoadSceneMode mode, float minLoadTime)
         {
-            Debug.Log($"Starting LoadSceneAsync for {sceneName}, mode: {mode}, minLoadingTime: {minLoadingTime}");
+            Debug.Log($"Starting LoadSceneAsync for {sceneName}, mode: {mode}, minLoadingTime: {minLoadTime}");
 
             var currentScene = SceneManager.GetActiveScene();
             var pauseScene = SceneManager.GetSceneByName(Consts.SCENE_PAUSE_MENU);
@@ -70,7 +71,7 @@ namespace Whatwapp.MergeSolitaire.Game.Scenes
                 }
                 else
                 {
-                    loadingUI.StartLoading(minLoadingTime);
+                    loadingUI.StartLoading(minLoadTime);
                     Debug.Log("LoadingUI initialized.");
                 }
             }
@@ -160,7 +161,7 @@ namespace Whatwapp.MergeSolitaire.Game.Scenes
                 {
                     _timer += Time.deltaTime;
 
-                    if (_asyncOp.progress >= 0.9f && _timer >= minLoadingTime)
+                    if (_asyncOp.progress >= 0.9f && _timer >= minLoadTime)
                     {
                         _asyncOp.allowSceneActivation = true;
                     }
@@ -233,7 +234,7 @@ namespace Whatwapp.MergeSolitaire.Game.Scenes
             Debug.Log($"LoadSceneAsync completed for {sceneName}.");
         }
 
-        private void LoadScene(string sceneName, LoadSceneMode mode, float minLoadingTime = 3f)
+        private void LoadScene(string sceneName, LoadSceneMode mode, float minLoadTime)
         {
             if (_isLoading)
             {
@@ -242,7 +243,7 @@ namespace Whatwapp.MergeSolitaire.Game.Scenes
             }
 
             _isLoading = true;
-            StartCoroutine(LoadSceneAsync(sceneName, mode, minLoadingTime));
+            StartCoroutine(LoadSceneAsync(sceneName, mode, minLoadTime));
         }
 
         public void LoadMainMenu()

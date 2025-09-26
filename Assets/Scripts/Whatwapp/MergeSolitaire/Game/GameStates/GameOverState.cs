@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Whatwapp.MergeSolitaire.Game.Presentation;
 using Whatwapp.MergeSolitaire.Game.Scenes;
 
@@ -10,6 +9,9 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
     {
         private readonly ISFXPresenter _sfxPresenter;
 
+        private const float ShowPanelDelay1 = 1f;
+        private const float ShowPanelDelay2 = 2f;
+        
         public GameOverState(GameController gameController, ISFXPresenter sfxPresenter) : base(gameController)
         {
             _sfxPresenter = sfxPresenter;
@@ -25,12 +27,11 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 
         private IEnumerator ShowPanel()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(ShowPanelDelay1);
             _sfxPresenter.PlayOneShot(Consts.SFX_Lost);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(ShowPanelDelay2);
 
             SceneLoadingManager.Instance.LoadEndGame();
-           // SceneManager.LoadScene(Consts.SCENE_END_GAME);
         }
     }
 }

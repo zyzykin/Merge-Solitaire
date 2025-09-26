@@ -9,7 +9,7 @@ namespace Whatwapp.Core.UI
         public void Show(Action onShowComplete = null);
         public void Hide(Action onHideComplete = null);
     }
-    
+
     public interface IPanel<T> : IPanel
     {
         public void SetData(T context);

@@ -68,7 +68,8 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 var firstCell = group[0];
                 var oldValue = firstCell.Block.Value;
                 var nextValue = oldValue.Next(true);
-                var randomSeed = EnumUtils.GetRandom<BlockSeed>();
+                var validSeeds = new[] { BlockSeed.Clubs, BlockSeed.Diamonds, BlockSeed.Hearts, BlockSeed.Spades };
+                var randomSeed = validSeeds[Random.Range(0, validSeeds.Length)];
                 var seedHash = new HashSet<BlockSeed>();
                 foreach (var cell in group)
                 {

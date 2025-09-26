@@ -16,6 +16,8 @@ namespace Whatwapp.MergeSolitaire.Game.Presentation
         void AnimateMoves(List<(Block block, Vector3 targetPos)> movePairs, Action onComplete);
         void AnimateColumnClick(List<Cell> columnCells);
         void AnimateAppear(Block block);
-        void AnimateExplosion(Block block);
+        void AnimateExplosion(Block block, Board board = null, Cell currentCell = null, 
+            HashSet<Cell> visitedCells = null, Action onComplete = null, 
+            Action<Block, Cell> onBlockAnimationComplete = null);
     }
 }

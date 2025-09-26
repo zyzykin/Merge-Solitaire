@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visual: {fileID: 1312209873878812939}
+  destroyParticlePrefab: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+  bombExplodeRadius: 1
 --- !u!1 &4217779888650971956
 GameObject:
   m_ObjectHideFlags: 0

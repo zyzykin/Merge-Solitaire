@@ -5,6 +5,7 @@ namespace Whatwapp.MergeSolitaire.Game
     public class Block : MonoBehaviour
     {
         [SerializeField] private BlockVisual visual;
+        [SerializeField] private ParticleSystem destroyParticlePrefab;
 
         private BlockValue _value;
         private BlockSeed _seed;
@@ -22,6 +23,16 @@ namespace Whatwapp.MergeSolitaire.Game
 
         public void Remove()
         {
+            if (destroyParticlePrefab != null)
+            {
+                var particleInstance = Instantiate(destroyParticlePrefab, transform.position, Quaternion.identity);
+                
+                if (!particleInstance.playOnAwake)
+                {
+                    particleInstance.Play();
+                }
+            }
+
             Destroy(gameObject);
         }
     }

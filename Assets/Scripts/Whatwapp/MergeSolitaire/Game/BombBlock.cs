@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Whatwapp.MergeSolitaire.Game.Presentation;
@@ -8,40 +9,14 @@ namespace Whatwapp.MergeSolitaire.Game
     {
         [SerializeField] private int bombExplodeRadius = 1;
 
+        public int BombExplodeRadius => bombExplodeRadius;
+
         public void Explode(Board board, Cell currentCell, IBlockAnimationPresenter animationPresenter,
-            ISFXPresenter sfxPresenter, HashSet<Cell> visitedCells = null)
+            ISFXPresenter sfxPresenter, HashSet<Cell> visitedCells = null, Action onComplete = null,
+            Action<Block, Cell> onBlockAnimationComplete = null)
         {
-            if (visitedCells == null)
-            {
-                visitedCells = new HashSet<Cell>();
-            }
-
-            if (visitedCells.Contains(currentCell)) return;
-            visitedCells.Add(currentCell);
-            animationPresenter.AnimateExplosion(this);
             sfxPresenter.PlayOneShot(Consts.SFX_Explosion);
-
-            var neighbors = board.GetNeighbors(currentCell, bombExplodeRadius);
-            foreach (var neighborCell in neighbors)
-            {
-                if (neighborCell != null && !neighborCell.IsEmpty)
-                {
-                    var neighborBlock = neighborCell.Block;
-                    if (neighborBlock.Value == BlockValue.Bomb)
-                    {
-                        var bombBlock = neighborBlock as BombBlock;
-                        bombBlock.Explode(board, neighborCell, animationPresenter, sfxPresenter, visitedCells);
-                    }
-                    else
-                    {
-                        neighborBlock.Remove();
-                        neighborCell.Block = null;
-                    }
-                }
-            }
-
-            Remove();
-            currentCell.Block = null;
+            animationPresenter.AnimateExplosion(this, board, currentCell, visitedCells, onComplete, onBlockAnimationComplete);
         }
     }
 }

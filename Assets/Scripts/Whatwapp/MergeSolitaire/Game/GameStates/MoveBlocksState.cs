@@ -13,6 +13,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 
         private readonly List<Cell> _movingCells;
         private int _startingRow;
+        private int _activeExplosions;
 
         public MoveBlocksState(GameController gameController, Board board,
             IBlockAnimationPresenter blockAnimationPresenter, ISFXPresenter sfxPresenter) : base(gameController)
@@ -21,6 +22,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             _movingCells = new List<Cell>();
             _blockAnimationPresenter = blockAnimationPresenter;
             _sfxPresenter = sfxPresenter;
+            _activeExplosions = 0;
         }
 
         public override void OnEnter()
@@ -29,6 +31,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 
             _movingCells.Clear();
             _isMovingBlocks = false;
+            _activeExplosions = 0;
             _startingRow = _board.Height - 2;
         }
 
@@ -37,12 +40,13 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             base.OnExit();
 
             _isMovingBlocks = false;
+            _activeExplosions = 0;
             HasMovableBlocks();
         }
 
         public override void Update()
         {
-            if (_isMovingBlocks) return;
+            if (_isMovingBlocks || _activeExplosions > 0) return;
             _isMovingBlocks = true;
             if (FindMovableCells())
             {
@@ -98,6 +102,8 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         private void CheckAndExplodeBombs()
         {
             var visitedCells = new HashSet<Cell>();
+            var bombsToExplode = new List<(BombBlock bomb, Cell cell)>();
+
             foreach (var cell in _board.Cells)
             {
                 if (cell.IsEmpty || cell.Block.Value != BlockValue.Bomb) continue;
@@ -105,17 +111,32 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 if (cell.Coordinates.y == 0)
                 {
                     var bombBlock = cell.Block as BombBlock;
-                    if (bombBlock != null)
+                    if (bombBlock != null && !visitedCells.Contains(cell))
                     {
-                        bombBlock.Explode(_board, cell, _blockAnimationPresenter, _sfxPresenter, visitedCells);
+                        bombsToExplode.Add((bombBlock, cell));
                     }
                 }
+            }
+
+            if (bombsToExplode.Count == 0) return;
+
+            _activeExplosions = bombsToExplode.Count;
+
+            foreach (var (bombBlock, cell) in bombsToExplode)
+            {
+                bombBlock.Explode(_board, cell, _blockAnimationPresenter, _sfxPresenter, visitedCells,
+                    () => { _activeExplosions--; },
+                    (block, targetCell) =>
+                    {
+                        block.Remove();
+                        targetCell.Block = null;
+                    });
             }
         }
 
         public bool CanMoveBlocks()
         {
-            return _isMovingBlocks || HasMovableBlocks();
+            return _isMovingBlocks || _activeExplosions > 0 || HasMovableBlocks();
         }
 
         private bool HasMovableBlocks()

@@ -19,6 +19,7 @@ namespace Whatwapp.MergeSolitaire.Game
         public const string SCENE_MAIN_MENU = "MainMenu";
         public const string SCENE_GAME = "Game";
         public const string SCENE_END_GAME = "EndGame";
+        public const string SCENE_PAUSE_MENU = "PauseMenu";
 
         public static readonly string[] SFX_Foundations =
             { "Foundation1", "Foundation2", "Foundation3", "Foundation4" };

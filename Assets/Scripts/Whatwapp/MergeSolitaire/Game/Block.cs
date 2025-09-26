@@ -25,12 +25,7 @@ namespace Whatwapp.MergeSolitaire.Game
         {
             if (destroyParticlePrefab != null)
             {
-                var particleInstance = Instantiate(destroyParticlePrefab, transform.position, Quaternion.identity);
-                
-                if (!particleInstance.playOnAwake)
-                {
-                    particleInstance.Play();
-                }
+                 Instantiate(destroyParticlePrefab, transform.position, Quaternion.identity);
             }
 
             Destroy(gameObject);

@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Whatwapp.Core.Cameras;
 using Whatwapp.Core.FSM;
 using Whatwapp.Core.Audio;
@@ -20,6 +22,7 @@ namespace Whatwapp.MergeSolitaire.Game
         [SerializeField] private FoundationsController foundationsController;
 
         [SerializeField] private ScoreBox scoreBox;
+        [SerializeField] private Button pauseButton;
 
         [Header("Presentation")] [SerializeField]
         private BlockAnimationPresenter blockAnimationPresenter;
@@ -110,6 +113,22 @@ namespace Whatwapp.MergeSolitaire.Game
         private void FixedUpdate()
         {
             _stateMachine.FixedUpdate();
+        }
+
+        private void OnEnable()
+        {
+            pauseButton.onClick.AddListener(OnPauseClicked);
+        }
+
+        private void OnDisable()
+        {
+            pauseButton.onClick.RemoveListener(OnPauseClicked);
+        }
+
+        private void OnPauseClicked()
+        {
+            IsPaused = true;
+            SceneManager.LoadScene(Consts.SCENE_PAUSE_MENU, LoadSceneMode.Additive);
         }
     }
 }

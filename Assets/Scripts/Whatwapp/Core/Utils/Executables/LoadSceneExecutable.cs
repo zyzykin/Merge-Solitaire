@@ -9,7 +9,6 @@ namespace Whatwapp.Core.Utils.Executables
         
         public void Execute()
         {
-
             UnityEngine.SceneManagement.SceneManager.LoadScene(_sceneName,
                 _additive ? UnityEngine.SceneManagement.LoadSceneMode.Additive :
                     UnityEngine.SceneManagement.LoadSceneMode.Single);

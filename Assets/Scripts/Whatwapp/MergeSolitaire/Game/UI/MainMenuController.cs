@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Whatwapp.MergeSolitaire.Game.Scenes;
 
 namespace Whatwapp.MergeSolitaire.Game.UI
 {
@@ -29,7 +30,8 @@ namespace Whatwapp.MergeSolitaire.Game.UI
 
         private void OnPlayClicked()
         {
-            SceneManager.LoadScene(Consts.SCENE_GAME);
+            SceneLoadingManager.Instance.LoadGame();
+           // SceneManager.LoadScene(Consts.SCENE_GAME);
         }
     }
 }

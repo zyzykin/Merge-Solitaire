@@ -7,6 +7,7 @@ using Whatwapp.Core.Audio;
 using Whatwapp.MergeSolitaire.Game.GameStates;
 using Whatwapp.MergeSolitaire.Game.UI;
 using Whatwapp.MergeSolitaire.Game.Presentation;
+using Whatwapp.MergeSolitaire.Game.Scenes;
 
 namespace Whatwapp.MergeSolitaire.Game
 {
@@ -128,7 +129,8 @@ namespace Whatwapp.MergeSolitaire.Game
         private void OnPauseClicked()
         {
             IsPaused = true;
-            SceneManager.LoadScene(Consts.SCENE_PAUSE_MENU, LoadSceneMode.Additive);
+            SceneLoadingManager.Instance.LoadPauseMenu();
+           // SceneManager.LoadScene(Consts.SCENE_PAUSE_MENU, LoadSceneMode.Additive);
         }
     }
 }
